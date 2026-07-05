@@ -1,0 +1,70 @@
+{
+  "name": "create-j1ma",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "build/index.js",
+  "author": {
+    "name": "j1ma",
+    "email": "j1magimenez@gmail.com"
+  },
+  "description": "Project initializer for React and Next.js apps.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j1madev/create-j1ma.git"
+  },
+  "files": [
+    "build/**/*",
+    "README.md"
+  ],
+  "keywords": [
+    "commitlint",
+    "eslint",
+    "husky",
+    "next",
+    "prettier",
+    "react",
+    "typescript"
+  ],
+  "license": "ISC",
+  "bin": {
+    "create-j1ma": "build/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "link-cli": "pnpm build && npm uninstall -g create-j1ma && npm link",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@clack/prompts": "0.11.0",
+    "@commitlint/cli": "20.3.0",
+    "@commitlint/config-conventional": "20.3.0",
+    "@eslint/js": "9.39.2",
+    "@stylistic/eslint-plugin": "5.5.0",
+    "@types/node": "24.10.1",
+    "@typescript-eslint/eslint-plugin": "8.48.0",
+    "@typescript-eslint/parser": "8.48.0",
+    "eslint": "9.39.1",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-check-file": "3.3.1",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-unicorn": "62.0.0",
+    "execa": "9.6.1",
+    "husky": "9.1.7",
+    "picocolors": "1.1.1",
+    "prettier": "3.7.4",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.51.0",
+    "vitest": "4.0.16"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "14.0.0",
+    "commander": "14.0.2"
+  }
+}

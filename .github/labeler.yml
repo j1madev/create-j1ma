@@ -1,0 +1,64 @@
+💻 source:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/**
+
+📝 documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - README.md
+
+🏭 build:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .node-version
+          - tsconfig.json
+          - tsup.config.ts
+
+⚙️ configuration:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .commitlintrc.json
+          - .editorconfig
+          - .eslintignore
+          - .eslintrc.json
+          - .gitignore
+          - .node-version
+          - .prettierignore
+          - .prettierrc.json
+          - .tsconfig.json
+          - .tsup.config.ts
+
+📦 dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - package.json
+          - pnpm-lock.yaml
+
+🤖 ci/cd:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/dependabot.yml
+          - .github/workflows/**
+          - .husky/**
+
+🏠 github configuration:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/labeler.yml
+          - .github/labels.yml
+          - .github/settings.yml
+
+🧪 tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.test.ts'
+
+🚀 feature:
+  - head-branch: ['^feat', '^feature']
+
+🩹 fix:
+  - head-branch: ['^fix', '^hotfix']
+
+🧹 chore:
+  - head-branch: ['^chore']

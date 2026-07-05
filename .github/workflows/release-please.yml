@@ -1,0 +1,43 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+      - uses: actions/checkout@v5
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+        if: ${{ steps.release.outputs.release_created }}
+      - run: npm install -g npm@latest
+        if: ${{ steps.release.outputs.release_created }}
+      - run: pnpm install --frozen-lockfile
+        if: ${{ steps.release.outputs.release_created }}
+      - run: pnpm build
+        if: ${{ steps.release.outputs.release_created }}
+      - run: npm publish --provenance
+        if: ${{ steps.release.outputs.release_created }}
