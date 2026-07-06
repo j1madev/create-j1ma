@@ -45,7 +45,7 @@ git push -u origin main
 
 Once it's on GitHub, **Dependabot starts working automatically** — it will open
 PRs for outdated dependencies on the schedule in `.github/dependabot.yml`
-(monthly). No token is required just to *open* those PRs.
+(monthly). No token is required just to _open_ those PRs.
 
 ---
 
@@ -116,12 +116,12 @@ them if you want to keep things minimal.
 
 ## Quick reference: how it all fits together
 
-| Piece | Role |
-|-------|------|
-| `src/index.ts` | CLI entry (commander) |
-| `src/generators/create-project.ts` | Orchestrates: copy template → merge deps → git init → install |
-| `src/templates/<name>/` | The files copied into a new project |
-| `src/dependencies/<layer>/package.json` | Dependency **versions** for generated projects (Dependabot-friendly) |
-| `.github/dependabot.yml` | Tells GitHub what to keep updated, and how often |
-| `.github/workflows/dependabot-auto-merge.yml` | Auto-merges safe (patch/minor) bumps |
-| `pnpm-workspace.yaml` | Approves `esbuild`'s build script (required by pnpm 11+) |
+| Piece                                         | Role                                                                 |
+| --------------------------------------------- | -------------------------------------------------------------------- |
+| `src/index.ts`                                | CLI entry (commander)                                                |
+| `src/generators/create-project.ts`            | Orchestrates: copy template → merge deps → git init → install        |
+| `src/templates/<name>/`                       | The files copied into a new project                                  |
+| `src/dependencies/<layer>/package.json`       | Dependency **versions** for generated projects (Dependabot-friendly) |
+| `.github/dependabot.yml`                      | Tells GitHub what to keep updated, and how often                     |
+| `.github/workflows/dependabot-auto-merge.yml` | Auto-merges safe (patch/minor) bumps                                 |
+| `pnpm-workspace.yaml`                         | Approves `esbuild`'s build script (required by pnpm 11+)             |
