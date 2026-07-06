@@ -64,9 +64,14 @@ Three GitHub-side steps make it work:
    - Repository access: only `j1madev/create-j1ma`.
    - Permissions: **Contents: Read and write**, **Pull requests: Read and write**.
    - Copy the token.
-2. **Add it as a repo secret.**
-   - Repo → Settings → Secrets and variables → **Actions** → New repository secret.
+2. **Add it as a _Dependabot_ secret** (not an Actions secret!).
+   - Repo → Settings → Secrets and variables → **Dependabot** → New repository
+     secret.
    - Name it exactly `DEPENDABOT_AUTO_MERGE_TOKEN` and paste the token.
+   - This matters: Dependabot-triggered workflows run with a locked-down token
+     and **cannot read Actions secrets** — they only see secrets stored in the
+     Dependabot section. Putting it under "Actions" leaves `github-token` empty
+     and the auto-merge job fails with "Input required and not supplied".
 3. **Enable auto-merge + protect `main`.**
    - Repo → Settings → General → check **Allow auto-merge**.
    - Repo → Settings → Branches → add a branch protection rule for `main`:
