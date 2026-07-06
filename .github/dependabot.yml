@@ -9,6 +9,13 @@ updates:
       - '📦 dependencies'
     schedule:
       interval: 'monthly'
+    groups:
+      cli-dependencies:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
   - package-ecosystem: 'github-actions'
     directory: '/'
     commit-message:
@@ -18,6 +25,10 @@ updates:
     labels:
       - '📦 dependencies'
       - '🤖 ci/cd'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
   # Template updates
   - package-ecosystem: 'npm'
     directories:
@@ -29,3 +40,10 @@ updates:
     schedule:
       interval: 'monthly'
       day: 'monday'
+    groups:
+      template-dependencies:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
