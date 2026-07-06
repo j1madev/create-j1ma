@@ -1,6 +1,6 @@
 {
   "name": "create-j1ma",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "build/index.js",
   "author": {
