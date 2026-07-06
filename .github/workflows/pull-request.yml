@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
           run_install: false
@@ -40,10 +40,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
           run_install: false
@@ -66,10 +66,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
           run_install: false
@@ -87,7 +87,7 @@ jobs:
         run: pnpm build
 
       - name: 📤 Upload build artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: build
           path: ./build
@@ -98,10 +98,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
           run_install: false
@@ -116,7 +116,7 @@ jobs:
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - name: 📥 Download build artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: build
           path: ./build
