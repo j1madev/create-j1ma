@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/j1madev/create-j1ma/compare/v1.1.0...v1.1.1) (2026-07-07)
+
+
+### 🐛 Bug Fixes
+
+* keep scaffolded pnpm-workspace.yaml free of build placeholders ([#24](https://github.com/j1madev/create-j1ma/issues/24)) ([c83dcd3](https://github.com/j1madev/create-j1ma/commit/c83dcd3a250779eca8b78ca8c25ad42e21ea8327))
+
 ## [1.1.0](https://github.com/j1madev/create-j1ma/compare/v1.0.1...v1.1.0) (2026-07-07)
 
 
