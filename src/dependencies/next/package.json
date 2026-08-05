@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "next": "16.2.10"
+    "next": "16.2.12"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "16.2.10"
+    "@next/eslint-plugin-next": "16.2.12"
   }
 }
