@@ -165,7 +165,7 @@ export default [
   ],
   // Disable type checked in .js files
   {
-    files: ['**/*.{js,cjs,mjs}', './tsup.config.ts'],
+    files: ['**/*.{js,cjs,mjs}', './*.config.ts'],
     ...tsEslint.configs.disableTypeChecked,
   },
   // Unicorn

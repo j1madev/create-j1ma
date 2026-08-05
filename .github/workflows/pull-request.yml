@@ -123,3 +123,38 @@ jobs:
 
       - name: 🧪 Run tests
         run: pnpm test
+
+  smoke:
+    name: 🔥 Smoke
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎯 Checkout
+        uses: actions/checkout@v7
+
+      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+          run_install: false
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: 📥 Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build
+          path: ./build
+
+      # Scaffolds every template for real and lints it. Dependabot updates
+      # `src/dependencies/*` with no lockfile to resolve peers against, so this
+      # is the only gate that sees a generated project the way a user does.
+      - name: 🔥 Run smoke tests
+        run: pnpm test:smoke
