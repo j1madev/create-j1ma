@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/j1madev/create-j1ma/compare/v1.1.1...v1.2.0) (2026-08-05)
+
+
+### ✨ New Features
+
+* pin the package manager in generated projects ([ee92487](https://github.com/j1madev/create-j1ma/commit/ee92487fd1d67710f0ef5941a7a766fccc1a4920))
+
+
+### 🐛 Bug Fixes
+
+* Bump the template-dependencies group across 4 directories with 10 updates ([#41](https://github.com/j1madev/create-j1ma/issues/41)) ([7bfd50d](https://github.com/j1madev/create-j1ma/commit/7bfd50d743568b9c6db8a82a5ddb32a4b307b3fd))
+* move scaffold commitlint config to a js module ([1c19678](https://github.com/j1madev/create-j1ma/commit/1c1967838d9de78556fe965462466492ec6b94c2))
+* pin scaffolds to eslint 9 so generated projects can lint ([7352d4d](https://github.com/j1madev/create-j1ma/commit/7352d4d41e5b96ebb17767146f29941d816251a0))
+* pin the right version when the prompt picks another manager ([100aeab](https://github.com/j1madev/create-j1ma/commit/100aeabe1f497a16342514cd7ec93df394770c92))
+* resolve the pinned pm version without spawning a process ([043a934](https://github.com/j1madev/create-j1ma/commit/043a934dbcc3eec39af8ab242e8a9e382c9b84a8))
+* stop commitlint rejecting long commit bodies in scaffolds ([24f969c](https://github.com/j1madev/create-j1ma/commit/24f969c865ae401f9efbd857b8ca1d32395439ed))
+
 ## [1.1.1](https://github.com/j1madev/create-j1ma/compare/v1.1.0...v1.1.1) (2026-07-07)
 
 
