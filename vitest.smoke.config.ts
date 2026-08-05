@@ -11,5 +11,11 @@ export default defineConfig({
     // gain, and interleaved output makes a failure hard to read.
     fileParallelism: false,
     sequence: { concurrent: false },
+    // Every case shells out to a real `pnpm install`, which occasionally fails
+    // for reasons that have nothing to do with the scaffold — a registry hiccup
+    // or store contention. What this suite guards against (an unresolvable
+    // dependency set, a crashing lint) fails identically on both attempts, so
+    // a single retry drops the noise without hiding a regression.
+    retry: 1,
   },
 })
