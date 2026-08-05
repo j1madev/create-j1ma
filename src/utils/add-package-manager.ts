@@ -26,7 +26,12 @@ const EXACT_VERSION = /^\d+\.\d+\.\d+(?:-[\w.]+)?$/
 function getVersionFromUserAgent(packageManager: string) {
   const userAgent = process.env.npm_config_user_agent ?? ''
 
-  return new RegExp(`(?:^|\\s)${packageManager}/(\\S+)`).exec(userAgent)?.[1] ?? null
+  const version = new RegExp(`(?:^|\\s)${packageManager}/(\\S+)`).exec(userAgent)?.[1]
+
+  // Entries for managers other than the one that launched the CLI carry a
+  // placeholder rather than a version - pnpm reports `pnpm/11.17.0 npm/?` -
+  // so anything unusable has to read as absent and fall through to the spawn.
+  return version && EXACT_VERSION.test(version) ? version : null
 }
 
 /**
