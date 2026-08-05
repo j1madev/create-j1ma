@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { spinner as createSpinner, note } from '@clack/prompts'
 
 import { addNodeVersion } from '../utils/add-node-version.js'
+import { addPackageManager } from '../utils/add-package-manager.js'
 import { buildDependencies } from '../utils/build-dependencies.js'
 import { copyFromTemplate } from '../utils/copy-from-template.js'
 import { execCmd } from '../utils/exec-command.js'
@@ -27,6 +28,7 @@ export async function createProject({ template, name }: { template?: string; nam
 
     await copyFromTemplate(selectedTemplate, projectName)
     await buildDependencies({ template: selectedTemplate, projectName })
+    await addPackageManager({ packageManager, projectName })
     await copyFromTemplate('README.md', join(projectName, 'README.md'))
     await renameGitignore(projectName)
     await replaceFiles(projectName)
