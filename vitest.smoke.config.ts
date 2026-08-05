@@ -6,7 +6,9 @@ export default defineConfig({
     // A scaffold runs a full dependency install before it can lint, and the
     // Next.js templates are the heavy ones.
     testTimeout: 15 * 60 * 1000,
-    hookTimeout: 60 * 1000,
+    // Teardown deletes four full `node_modules` trees, which on Windows is
+    // slow enough to blow past a minute on its own.
+    hookTimeout: 10 * 60 * 1000,
     // Four concurrent installs thrash the pnpm store and the network for no
     // gain, and interleaved output makes a failure hard to read.
     fileParallelism: false,
