@@ -38,7 +38,9 @@ const createWorkspace = (prefix: string) => {
 
 afterAll(() => {
   for (const workspace of workspaces) {
-    rmSync(workspace, { recursive: true, force: true })
+    // Windows holds handles on freshly written `node_modules` files long
+    // enough to fail an immediate delete.
+    rmSync(workspace, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 })
   }
 })
 
