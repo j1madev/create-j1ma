@@ -1,0 +1,66 @@
+import { readFile, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
+
+import { type PACKAGE_MANAGER } from '../constants/package-manager.js'
+
+import { execCmd } from './exec-command.js'
+
+/**
+ * Package managers Corepack knows how to provision. Bun is intentionally
+ * excluded: it neither reads nor is resolved by the `packageManager` field,
+ * so pinning it there is noise at best and a Corepack error at worst.
+ */
+const COREPACK_MANAGERS = new Set(['npm', 'pnpm', 'yarn'])
+
+/** Corepack only accepts a fully qualified `name@version`, never a range. */
+const EXACT_VERSION = /^\d+\.\d+\.\d+(?:-[\w.]+)?$/
+
+/**
+ * Pins the package manager in the project's `package.json` via the
+ * `packageManager` field.
+ *
+ * Without it, Corepack resolves a different version on every machine and
+ * `pnpm/action-setup` fails outright unless the workflow repeats the version
+ * inline. The field is written after the dependencies are merged, since
+ * `buildDependencies` rewrites the whole file.
+ */
+export async function addPackageManager({
+  packageManager,
+  projectName,
+}: {
+  packageManager: keyof typeof PACKAGE_MANAGER
+  projectName: string
+}) {
+  if (!COREPACK_MANAGERS.has(packageManager)) return
+
+  let version: string
+
+  try {
+    const { stdout } = await execCmd(`${packageManager} --version`)
+
+    version = stdout.trim()
+  } catch (_error) {
+    // The install step will surface a missing package manager far more
+    // clearly than a half-written manifest would.
+    return
+  }
+
+  if (!EXACT_VERSION.test(version)) return
+
+  const pkgJsonPath = join(process.cwd(), projectName, 'package.json')
+
+  const {
+    name,
+    version: projectVersion,
+    ...rest
+  } = JSON.parse(await readFile(pkgJsonPath, 'utf8')) as Record<string, unknown>
+
+  const pkgJson = {
+    name,
+    version: projectVersion,
+    packageManager: `${packageManager}@${version}`,
+    ...rest,
+  }
+
+  await writeFile(pkgJsonPath, `${JSON.stringify(pkgJson, null, 2)}\n`, 'utf8')
+}
