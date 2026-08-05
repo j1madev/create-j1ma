@@ -16,6 +16,20 @@ const COREPACK_MANAGERS = new Set(['npm', 'pnpm', 'yarn'])
 const EXACT_VERSION = /^\d+\.\d+\.\d+(?:-[\w.]+)?$/
 
 /**
+ * Reads the running package manager's version out of the npm user agent,
+ * which looks like `pnpm/11.17.0 npm/? node/v24.17.0`.
+ *
+ * Spawning `<pm> --version` costs a process, and every millisecond here lands
+ * before the first spinner frame. The user agent already carries the answer
+ * whenever the CLI was invoked through the manager being pinned.
+ */
+function getVersionFromUserAgent(packageManager: string) {
+  const userAgent = process.env.npm_config_user_agent ?? ''
+
+  return new RegExp(`(?:^|\\s)${packageManager}/(\\S+)`).exec(userAgent)?.[1] ?? null
+}
+
+/**
  * Pins the package manager in the project's `package.json` via the
  * `packageManager` field.
  *
@@ -33,16 +47,20 @@ export async function addPackageManager({
 }) {
   if (!COREPACK_MANAGERS.has(packageManager)) return
 
-  let version: string
+  let version = getVersionFromUserAgent(packageManager)
 
-  try {
-    const { stdout } = await execCmd(`${packageManager} --version`)
+  if (!version) {
+    try {
+      // Only reachable when the manager was picked from the prompt rather than
+      // the one that launched the CLI.
+      const { stdout } = await execCmd(`${packageManager} --version`)
 
-    version = stdout.trim()
-  } catch (_error) {
-    // The install step will surface a missing package manager far more
-    // clearly than a half-written manifest would.
-    return
+      version = stdout.trim()
+    } catch (_error) {
+      // The install step will surface a missing package manager far more
+      // clearly than a half-written manifest would.
+      return
+    }
   }
 
   if (!EXACT_VERSION.test(version)) return
