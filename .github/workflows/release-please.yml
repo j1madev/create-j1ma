@@ -14,6 +14,18 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      # An absent secret resolves to an empty string, which surfaces deep
+      # inside the action as an opaque auth error. Name it here instead. An
+      # expired token is not empty and still fails below, as a 401.
+      - name: 🔑 Verify release token
+        env:
+          RELEASE_PLEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+        run: |
+          if [ -z "$RELEASE_PLEASE_TOKEN" ]; then
+            echo "::error::RELEASE_PLEASE_TOKEN is not set. Create a PAT with contents and pull-requests write on this repository, then store it as the RELEASE_PLEASE_TOKEN secret. Without it, release PRs get no CI and need 'gh pr merge --admin'."
+            exit 1
+          fi
+
       - uses: googleapis/release-please-action@v5
         id: release
         with:
@@ -23,9 +35,10 @@ jobs:
           # had to be force merged with `gh pr merge --admin`. A PAT is a
           # normal actor, so its pull requests run CI like any other.
           #
-          # Falls back to GITHUB_TOKEN, which restores the old behaviour rather
-          # than failing the release outright if the secret is ever missing.
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          # No fallback on purpose. RELEASE_PLEASE_TOKEN expires, and falling
+          # back to GITHUB_TOKEN would quietly return to unverifiable release
+          # PRs that need --admin again. Failing here is the signal to renew it.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
       - uses: actions/checkout@v7
