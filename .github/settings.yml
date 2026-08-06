@@ -14,13 +14,10 @@ repository:
   delete_branch_on_merge: true
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
-branches:
-  - name: main
-    protection:
-      required_pull_request_reviews: null
-      required_status_checks:
-        strict: true
-        contexts: []
-      enforce_admins: false
-      required_linear_history: true
-      restrictions: null
+# `main` is governed by the `protect-main` and `No direct push to main`
+# rulesets, configured under Settings > Rules. This file previously also
+# declared classic branch protection for `main`, which never applied -
+# `GET /repos/j1madev/create-j1ma/branches/main/protection` answered
+# "Branch not protected" - so it only implied guarantees that were not
+# there. Rulesets and classic protection are separate mechanisms; edit the
+# ruleset, not this file.
