@@ -2,7 +2,7 @@ import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from 'nod
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { execaCommandSync } from 'execa'
+import { execaSync } from 'execa'
 import { describe, test, afterAll, expect } from 'vitest'
 
 import { TEMPLATES, type Template } from '../constants/templates.js'
@@ -18,7 +18,7 @@ const projectName = 'smoke-app'
  */
 const env = {
   CI: 'true',
-  npm_config_user_agent: `pnpm/${execaCommandSync('pnpm --version').stdout.trim()} npm/? node/${process.version}`,
+  npm_config_user_agent: `pnpm/${execaSync('pnpm', ['--version']).stdout.trim()} npm/? node/${process.version}`,
 }
 
 /**
@@ -58,7 +58,7 @@ describe.each(Object.keys(TEMPLATES) as Template[])('%s scaffold', (template) =>
   const projectPath = join(workspace, projectName)
 
   test('pins its package manager, resolves peers and lints clean', () => {
-    execaCommandSync(`node ${CLI_PATH} ${projectName} --template ${template}`, {
+    execaSync(process.execPath, [CLI_PATH, projectName, '--template', template], {
       cwd: workspace,
       env,
     })
@@ -85,7 +85,7 @@ describe.each(Object.keys(TEMPLATES) as Template[])('%s scaffold', (template) =>
       }
     }
 
-    const peers = execaCommandSync('pnpm install --lockfile-only --strict-peer-dependencies', {
+    const peers = execaSync('pnpm', ['install', '--lockfile-only', '--strict-peer-dependencies'], {
       cwd: resolvePath,
       env,
       reject: false,
@@ -93,7 +93,7 @@ describe.each(Object.keys(TEMPLATES) as Template[])('%s scaffold', (template) =>
 
     expect(peers.exitCode, `unmet peer dependencies:\n${peers.stdout}\n${peers.stderr}`).toBe(0)
 
-    const lint = execaCommandSync('pnpm run lint', { cwd: projectPath, env, reject: false })
+    const lint = execaSync('pnpm', ['run', 'lint'], { cwd: projectPath, env, reject: false })
 
     expect(lint.exitCode, `pnpm run lint failed:\n${lint.stdout}\n${lint.stderr}`).toBe(0)
   })

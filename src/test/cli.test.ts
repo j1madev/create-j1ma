@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-import { execaCommandSync, type SyncResult, type SyncOptions } from 'execa'
+import { execaSync, type SyncResult, type SyncOptions } from 'execa'
 import colors from 'picocolors'
 import { describe, test, beforeAll, afterEach, expect } from 'vitest'
 
@@ -18,7 +18,7 @@ const templateFiles = readdirSync(join(__dirname, '..', '..', 'build', 'template
   .sort()
 
 const runCli = <SO extends SyncOptions>(args: string[], options?: SO): SyncResult<SO> => {
-  return execaCommandSync(`node ${CLI_PATH} ${args.join(' ')}`, options)
+  return execaSync(process.execPath, [CLI_PATH, ...args], options)
 }
 
 const createNonEmptyDir = (overridePath?: string) => {
