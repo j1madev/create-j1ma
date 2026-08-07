@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.1](https://github.com/j1madev/create-j1ma/compare/v1.2.0...v1.2.1) (2026-08-07)
+
+
+### 🐛 Bug Fixes
+
+* Bump @types/node in /src/dependencies/typescript ([#37](https://github.com/j1madev/create-j1ma/issues/37)) ([d0cddaf](https://github.com/j1madev/create-j1ma/commit/d0cddaf0628971f48756b6585bd8b58bb7a7fb4d))
+* Bump globals from 16.5.0 to 17.9.0 in /src/dependencies/base ([#35](https://github.com/j1madev/create-j1ma/issues/35)) ([8d9f6f3](https://github.com/j1madev/create-j1ma/commit/8d9f6f3f358c23e0b8048a9d99961f401d7db269))
+
+
+### 🔄 Refactoring
+
+* replace execaCommandSync with execaSync ([#45](https://github.com/j1madev/create-j1ma/issues/45)) ([2cc3d92](https://github.com/j1madev/create-j1ma/commit/2cc3d928cddf10765575e8ce2f87e270503292cf))
+
 ## [1.2.0](https://github.com/j1madev/create-j1ma/compare/v1.1.1...v1.2.0) (2026-08-05)
 
 
