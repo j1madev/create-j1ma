@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.2](https://github.com/j1madev/create-j1ma/compare/v1.2.1...v1.2.2) (2026-09-01)
+
+
+### 🐛 Bug Fixes
+
+* Bump the template-dependencies group across 4 directories with 9 updates ([#50](https://github.com/j1madev/create-j1ma/issues/50)) ([d1e5906](https://github.com/j1madev/create-j1ma/commit/d1e5906aac40791e6c9655e1d67648bc5597bb28))
+* Bump vite from 7.2.6 to 7.3.5 in /src/dependencies/vite ([#49](https://github.com/j1madev/create-j1ma/issues/49)) ([8476428](https://github.com/j1madev/create-j1ma/commit/8476428260eb5ce72c610f6b0734e01278e190e0))
+
 ## [1.2.1](https://github.com/j1madev/create-j1ma/compare/v1.2.0...v1.2.1) (2026-08-07)
 
 
